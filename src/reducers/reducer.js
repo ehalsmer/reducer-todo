@@ -31,7 +31,7 @@ export const Reducer = (state, action) => {
           completed: false,
           id: moment().format(),
           time_completed: '',
-          due: action.payload.dueDate,
+          due: action.payload.due,
           tags: action.payload.tags
         }
       ];

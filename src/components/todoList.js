@@ -6,22 +6,23 @@ import moment from 'moment';
 function TodoList() {
   const now = moment();
 
+  const [todo, setTodo] = useState({
+    item: "",
+    due: "",
+    tags: []
+  })
+
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const [newTodo, setNewTodo] = useState();
-  const [newDueDate, setNewDueDate] = useState();
-  const [newTags, setNewTags] = useState();
+
   const handleChanges = e => {
-    setNewTodo(e.target.value);
-  };
-  const handleDateChanges = e => {
     e.preventDefault();
-    setNewDueDate(e.target.value);
-  }
+    setTodo({...todo, [e.target.name]: e.target.value})
+  };
   const handleTagChanges = e => {
     e.preventDefault();
-    setNewTags(e.target.value.split(/[ ,]+/))
-    console.log('newTags', newTags)
+    setTodo({...todo, tags: e.target.value.split(/[ ,]+/)})
   }
+
   const toggleComplete = id => {
     dispatch({ type: "TOGGLE_COMPLETE", payload: id });
   };
@@ -54,26 +55,30 @@ function TodoList() {
       <div>
         <input
           type="text"
-          name="newTodo"
-          value={newTodo}
+          name="item"
+          value={todo.item}
           onChange={handleChanges}
         />
         <input
           type="text"
           name="tags"
-          value={newTags}
+          value={todo.tags}
           onChange={handleTagChanges}
         />
         <input
           type="date"
-          name="dueDate"
-          value={newDueDate}
-          onChange={handleDateChanges}
+          name="due"
+          value={todo.due}
+          onChange={handleChanges}
         />
         <button
           onClick={() => {
-            dispatch({ type: "NEW_TODO", payload: {item:newTodo, dueDate: newDueDate, tags: newTags }});
-            setNewTodo("");
+            dispatch({ type: "NEW_TODO", payload: todo});
+            setTodo({
+                item: "",
+                due: "",
+                tags: []
+            })
           }}
         >
           Add Todo
