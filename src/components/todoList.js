@@ -12,24 +12,27 @@ function TodoList() {
     dispatch({ type: "TOGGLE_COMPLETE", payload: id });
   };
   const clearComplete = () => {
-      dispatch({ type: "CLEAR_COMPLETE"})
-  }
+    dispatch({ type: "CLEAR_COMPLETE" });
+  };
 
   return (
     <div>
       <h1>Todo List</h1>
       <div>
         {state.map(todo => (
-          <p
-            className={`todo${todo.completed ? " complete" : ""}`}
-            onClick={e => {
-              e.preventDefault();
-              // console.log('todo.id', todo.id)
-              toggleComplete(todo.id);
-            }}
-          >
-            {todo.item}
-          </p>
+          <div>
+            <p
+              className={`todo${todo.completed ? " complete" : ""}`}
+              onClick={e => {
+                e.preventDefault();
+                // console.log('todo.id', todo.id)
+                toggleComplete(todo.id);
+              }}
+            >
+              {todo.item}
+            </p>
+            {todo.completed && <p>Done: {todo.time_completed}</p>}
+          </div>
         ))}
       </div>
       <div>

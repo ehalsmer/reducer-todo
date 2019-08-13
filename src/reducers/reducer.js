@@ -1,15 +1,18 @@
 import React from "react";
+import moment from 'moment';
 
 export const initialState = [
   {
     item: "Learn about reducers",
     completed: false,
-    id: 3892987589
+    id: 3892987589,
+    time_completed: ''
   },
   {
     item: "Learn about useReducer hook",
     completed: false,
-    id: 3892987590
+    id: 3892987590,
+    time_completed: ''
   }
 ];
 
@@ -21,7 +24,8 @@ export const Reducer = (state, action) => {
         {
           item: action.payload,
           completed: false,
-          id: new Date()
+          id: moment().format(),
+          time_completed: ''
         }
       ];
     case "TOGGLE_COMPLETE":
@@ -31,7 +35,8 @@ export const Reducer = (state, action) => {
             console.log({...todo, completed: !todo.completed})
           return {
             ...todo,
-            completed: !todo.completed
+            completed: !todo.completed,
+            time_completed: moment().format('MMM DD, h:mm a')
           };
         } else {
           return todo;
