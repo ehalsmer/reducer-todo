@@ -6,13 +6,15 @@ export const initialState = [
     item: "Learn about reducers",
     completed: false,
     id: 3892987589,
-    time_completed: ''
+    time_completed: '',
+    due: '2019-08-11'
   },
   {
     item: "Learn about useReducer hook",
     completed: false,
     id: 3892987590,
-    time_completed: ''
+    time_completed: '',
+    due: '2019-08-15'
   }
 ];
 
@@ -22,10 +24,11 @@ export const Reducer = (state, action) => {
       return [
         ...state,
         {
-          item: action.payload,
+          item: action.payload.item,
           completed: false,
           id: moment().format(),
-          time_completed: ''
+          time_completed: '',
+          due: action.payload.dueDate
         }
       ];
     case "TOGGLE_COMPLETE":

@@ -1,13 +1,19 @@
 import React, { useReducer, useState } from "react";
 import { initialState, Reducer } from "../reducers/reducer";
+import moment from 'moment';
 
 // use reducer hook to get array of todos and display them with .map and TodoItem
 function TodoList() {
   const [state, dispatch] = useReducer(Reducer, initialState);
   const [newTodo, setNewTodo] = useState();
+  const [newDueDate, setNewDueDate] = useState();
   const handleChanges = e => {
     setNewTodo(e.target.value);
   };
+  const handleDateChanges = e => {
+    e.preventDefault();
+    setNewDueDate(e.target.value);
+  }
   const toggleComplete = id => {
     dispatch({ type: "TOGGLE_COMPLETE", payload: id });
   };
@@ -29,7 +35,7 @@ function TodoList() {
                 toggleComplete(todo.id);
               }}
             >
-              {todo.item}
+              {todo.item}, Complete by: {todo.due}
             </p>
             {todo.completed && <p>Done: {todo.time_completed}</p>}
           </div>
@@ -42,9 +48,15 @@ function TodoList() {
           value={newTodo}
           onChange={handleChanges}
         />
+        <input
+          type="date"
+          name="dueDate"
+          value={newDueDate}
+          onChange={handleDateChanges}
+        />
         <button
           onClick={() => {
-            dispatch({ type: "NEW_TODO", payload: newTodo });
+            dispatch({ type: "NEW_TODO", payload: {item:newTodo, dueDate: newDueDate }});
             setNewTodo("");
           }}
         >
