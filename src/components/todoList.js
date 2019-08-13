@@ -8,8 +8,11 @@ function TodoList() {
   const handleChanges = e => {
     setNewTodo(e.target.value);
   };
-  const toggleComplete = (id) => {
-      dispatch({type: "TOGGLE_COMPLETE", payload: id})
+  const toggleComplete = id => {
+    dispatch({ type: "TOGGLE_COMPLETE", payload: id });
+  };
+  const clearComplete = () => {
+      dispatch({ type: "CLEAR_COMPLETE"})
   }
 
   return (
@@ -17,13 +20,16 @@ function TodoList() {
       <h1>Todo List</h1>
       <div>
         {state.map(todo => (
-          <p 
+          <p
             className={`todo${todo.completed ? " complete" : ""}`}
-            onClick={e=>{
-                e.preventDefault()
-                // console.log('todo.id', todo.id)
-                toggleComplete(todo.id)}}
-          >{todo.item}</p>
+            onClick={e => {
+              e.preventDefault();
+              // console.log('todo.id', todo.id)
+              toggleComplete(todo.id);
+            }}
+          >
+            {todo.item}
+          </p>
         ))}
       </div>
       <div>
@@ -36,10 +42,18 @@ function TodoList() {
         <button
           onClick={() => {
             dispatch({ type: "NEW_TODO", payload: newTodo });
-            setNewTodo('');
+            setNewTodo("");
           }}
         >
           Add Todo
+        </button>
+        <button
+          onClick={e => {
+            e.preventDefault();
+            clearComplete();
+          }}
+        >
+          Clear Complete
         </button>
       </div>
     </div>
