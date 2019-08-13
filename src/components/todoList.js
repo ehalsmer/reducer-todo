@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { initialState, Reducer } from "../reducers/reducer";
 import moment from 'moment';
+import { Input, Button } from 'semantic-ui-react';
 
 // use reducer hook to get array of todos and display them with .map and TodoItem
 function TodoList() {
@@ -53,25 +54,31 @@ function TodoList() {
         ))}
       </div>
       <div>
-        <input
+        <Input
           type="text"
           name="item"
           value={todo.item}
           onChange={handleChanges}
+          placeholder="Todo"
+          icon="sticky note outline"
         />
-        <input
+        <Input
           type="text"
           name="tags"
           value={todo.tags}
           onChange={handleTagChanges}
+          placeholder="Tags"
+          icon="tags"
         />
-        <input
+        <Input
           type="date"
           name="due"
           value={todo.due}
           onChange={handleChanges}
+          label="Due"
+          labelPosition="right corner"
         />
-        <button
+        <Button basic color="teal"
           onClick={() => {
             dispatch({ type: "NEW_TODO", payload: todo});
             setTodo({
@@ -82,15 +89,15 @@ function TodoList() {
           }}
         >
           Add Todo
-        </button>
-        <button
+        </Button>
+        <Button basic color="green"
           onClick={e => {
             e.preventDefault();
             clearComplete();
           }}
         >
           Clear Complete
-        </button>
+        </Button>
       </div>
     </div>
   );
