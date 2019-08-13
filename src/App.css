@@ -5,3 +5,7 @@
 .complete {
   text-decoration: line-through;
 }
+
+#overdue {
+  color: red;
+}

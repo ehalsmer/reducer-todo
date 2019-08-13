@@ -4,6 +4,8 @@ import moment from 'moment';
 
 // use reducer hook to get array of todos and display them with .map and TodoItem
 function TodoList() {
+  const now = moment();
+
   const [state, dispatch] = useReducer(Reducer, initialState);
   const [newTodo, setNewTodo] = useState();
   const [newDueDate, setNewDueDate] = useState();
@@ -29,6 +31,7 @@ function TodoList() {
           <div>
             <p
               className={`todo${todo.completed ? " complete" : ""}`}
+              id={`${moment(todo.due).isBefore(now) ? "overdue" : ""}`}
               onClick={e => {
                 e.preventDefault();
                 // console.log('todo.id', todo.id)
