@@ -17,6 +17,16 @@ export const initialState = [
 
 export const Reducer = (state, action) => {
     switch (action.type){
+        case "NEW_TODO":
+            console.log('action.payload', action.payload)
+            return [
+                ...state,
+                {
+                    item: action.payload,
+                    completed: false,
+                    id: new Date()
+                }
+            ]
         default:
             return state;
     }
